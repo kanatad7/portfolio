@@ -1,0 +1,1 @@
+import {Listing} from '@/components/archive';export default function Page(){return <Listing section="research"/>}

@@ -1,0 +1,1 @@
+"use client";import {useParams} from 'next/navigation';import {Detail} from '@/components/archive';export default function Page(){const p=useParams();return <Detail section="research" slug={String(p.slug)}/>;}
