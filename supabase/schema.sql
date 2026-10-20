@@ -4,13 +4,14 @@ create table if not exists public.admin_users (
 );
 create table if not exists public.entries (
   id uuid primary key default gen_random_uuid(),
-  section text not null check(section in ('works','research')),
+  section text not null check(section in ('works','research','archive')),
   slug text not null,
   title_en text not null default '', title_ja text not null default '', title_zh text not null default '',
   summary_en text not null default '', summary_ja text not null default '', summary_zh text not null default '',
   body_en text not null default '', body_ja text not null default '', body_zh text not null default '',
   category text not null default '', year text not null default '', cover_url text,
   published boolean not null default false, sort_order integer not null default 10,
+  archive_kind text not null default 'single' check(archive_kind in ('single','series')), archive_images jsonb not null default '[]'::jsonb, material text not null default '', method text not null default '',
   created_at timestamptz not null default now(),
   unique(section,slug)
 );
