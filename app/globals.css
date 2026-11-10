@@ -34,3 +34,59 @@
 .project-links-editor h2{font-size:18px;margin:0}.project-links-editor p{margin:0;font-size:13px}
 .project-links-editor .editor-row{grid-template-columns:1fr 2fr auto;align-items:end}
 @media(max-width:800px){.project-links-editor .editor-row{grid-template-columns:1fr}.project-links{margin-top:22px}}
+
+/* About phases / parallel careers: appended styles; other pages unchanged */
+.about-layout { position: relative; }
+.about-layout .profile-art { align-self: start; }
+.about-layout .profile-art .about-profile-photo { width: min(100%, 145px); height: auto; object-fit: cover; }
+.phase-section { margin: 2.2rem 0 2.8rem; }
+.phase-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; color:#1A5B8C; }
+.phase-heading h3 { font-size:1rem; font-weight:600; letter-spacing:.055em; margin:0; }
+.phase-heading span { font-size:.83rem; white-space:nowrap; }
+.phase-description { margin:.8rem 0 1.2rem; padding:1.15rem 1.25rem; background:#e2eaf0; color:#1A5B8C; }
+.phase-description h4 { font-size:1rem; font-weight:600; margin:0 0 .3rem; }
+.phase-description p { font-size:.88rem; line-height:1.75; margin:0; white-space:pre-line; }
+.phase-chart-heading { display:grid; grid-template-columns:minmax(180px,46%) minmax(140px,1fr) 24px; align-items:end; gap:.7rem; color:#6B8798; font-size:.67rem; margin-bottom:.3rem; }
+.phase-years { display:flex; justify-content:space-between; }
+.phase-years span { font-variant-numeric:tabular-nums; }
+.phase-activity { border-top:1px solid #ccd8e1; }
+.activity-toggle { width:100%; border:0; background:transparent; color:#1A5B8C; display:grid; grid-template-columns:minmax(180px,46%) minmax(140px,1fr) 24px; text-align:left; gap:.7rem; align-items:center; cursor:pointer; padding:1rem .1rem; font:inherit; }
+.activity-toggle:hover .activity-name { text-decoration:underline; text-underline-offset:3px; }
+.activity-label { display:flex; flex-direction:column; gap:.18rem; min-width:0; }
+.activity-name { font-size:.94rem; line-height:1.45; font-weight:600; overflow-wrap:anywhere; }
+.activity-role,.activity-period { font-size:.76rem; line-height:1.45; color:#628298; }
+.activity-chart { position:relative; width:100%; height:10px; background:repeating-linear-gradient(to right,transparent 0,transparent calc(14.285% - 1px),#d6e0e6 calc(14.285% - 1px),#d6e0e6 14.285%); }
+.activity-bar { position:absolute; top:0; height:10px; background:#1A5B8C; min-width:2px; }
+.activity-kind { font-size:.68rem; color:#65869A; }
+.activity-chevron { text-align:right; font-size:1.25rem; font-weight:300; }
+.activity-expanded { background:#e8eef2; color:#315e78; padding:1.25rem 1.5rem; }
+.activity-expanded p { margin:.5rem 0 .9rem; font-size:.9rem; line-height:1.85; white-space:pre-line; }
+.activity-category { font-size:.68rem; letter-spacing:.07em; font-weight:600; color:#608197; }
+.activity-related-title { font-size:.82rem; display:block; margin:1.3rem 0 .6rem; }
+.activity-related { display:flex; gap:.7rem; flex-wrap:wrap; }
+.activity-related .related-link { padding:.55rem .75rem; border:1px solid #9eb8c7; color:#1A5B8C; font-size:.8rem; text-decoration:none; overflow-wrap:anywhere; }
+.activity-related .related-link:hover { background:#d6e4ec; }
+.phase-also { margin-top:1.2rem; }
+.phase-also>small { color:#64849A; display:block; margin-bottom:.45rem; }
+.practice-admin fieldset { margin:1.1rem 0; }
+.phase-checkboxes { display:flex; gap:.6rem 1.5rem; flex-wrap:wrap; margin:.7rem 0 1.1rem; }
+.phase-checkboxes label { font-size:.86rem; display:flex; align-items:center; gap:.35rem; }
+@media (max-width:700px){
+ .about-layout .profile-art { max-width:116px; margin:0 0 1.25rem; }
+ .about-layout .profile-art .about-profile-photo { max-width:116px; }
+ .phase-chart-heading { display:none; }
+ .activity-toggle { grid-template-columns:minmax(0,1fr) 30px; gap:.5rem; }
+ .activity-label { grid-column:1; }
+ .activity-chart,.activity-kind { grid-column:1; grid-row:2; }
+ .activity-chart { max-width:100%; height:7px; }
+ .activity-bar { height:7px; }
+ .activity-chevron { grid-column:2; grid-row:1 / span 2; }
+ .phase-heading { flex-wrap:wrap; }
+ .activity-expanded { padding:1rem; }
+}
+
+.about-layout .profile-art { width:145px; min-height:0; padding:0; background:transparent; }
+.about-layout .profile-art:not(:has(img)) { padding:10px 0; }
+.about-layout .profile-art:not(:has(img)) span { font-size:15px; line-height:1.5; letter-spacing:0; }
+@media(max-width:700px){ .about-layout .profile-art { width:116px; } }
+@media(max-width:700px){ .about-layout { display:flex; flex-direction:column; } .about-layout .profile-art { order:-1; margin-bottom:0; } }
