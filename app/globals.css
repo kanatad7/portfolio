@@ -176,3 +176,36 @@
 @media(max-width:600px){.about-admin-content{padding:14px}.about-admin-heading{align-items:flex-start;flex-direction:column}.about-dates{grid-template-columns:1fr}.about-link-line{grid-template-columns:1fr}.about-photo-editor{grid-template-columns:1fr}.about-save-bottom{align-items:flex-start;flex-direction:column}.about-lang-tabs button{padding:10px 9px;font-size:12px}}
 
 .phase-years{display:grid;justify-content:unset;gap:0}.phase-years span{text-align:center;min-width:0;font-variant-numeric:tabular-nums}.phase-years span:last-child{text-align:right}.phase-years span:first-child{text-align:left}.activity-chart{background-image:linear-gradient(to right,#d6e0e6 1px, transparent 1px);background-repeat:repeat-x}.activity-chart::before{display:none}
+
+/* 2026-11-11 follow-up: readable portrait scale, without enlarging biography text. */
+@media (min-width: 701px) {
+  .section-page.about-layout {
+    grid-template-columns: minmax(0, 1fr) clamp(210px, 19vw, 270px);
+    column-gap: clamp(28px, 3.2vw, 58px);
+    align-items: start;
+  }
+  .section-page.about-layout .profile-art {
+    width: 100%;
+    max-width: 270px;
+    min-width: 0;
+  }
+  .section-page.about-layout .profile-art .about-profile-photo {
+    width: 100%;
+    max-width: 270px;
+    height: auto;
+    max-height: 380px;
+    object-fit: contain;
+  }
+}
+@media (max-width: 700px) {
+  .section-page.about-layout .profile-art {
+    width: min(46vw, 190px);
+    max-width: 190px;
+  }
+  .section-page.about-layout .profile-art .about-profile-photo {
+    width: 100%;
+    max-width: 190px;
+    max-height: 280px;
+    object-fit: contain;
+  }
+}

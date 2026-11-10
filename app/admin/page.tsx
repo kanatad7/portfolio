@@ -36,7 +36,7 @@ function appendImages(current:Editor,urls:string[],kind:'cover'|'additional'):Ed
 async function saveAbout(e:React.FormEvent){
  e.preventDefault();if(!db||!allowed)return;
  setBusy(true);const {error}=await db.from('site_profile').upsert({...profile,id:'main',updated_at:new Date().toISOString()},{onConflict:'id'});
- setBusy(false);setMessage(error?.message||'About saved.');if(!error){setEditingAbout(false);await refresh()}
+ setBusy(false);setMessage(error?.message||'About saved. You can continue editing here.');
 }
 async function saveHome(e:React.FormEvent){e.preventDefault();if(!db||!allowed)return;setBusy(true);const {error}=await db.from('home_settings').upsert({...home,id:'main'},{onConflict:'id'});setBusy(false);setMessage(error?.message||'Homepage saved.');if(!error){setEditingHome(false);await refresh()}}
 async function uploadProfilePhoto(files:FileList|null){

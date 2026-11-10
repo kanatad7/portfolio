@@ -31,7 +31,7 @@ function PhasePanel({phase,index,activities,entries,lang,now}:{phase:Phase;index
  const yearCount=range.end-range.start+1;
  const years=yearCount<=16?Array.from({length:yearCount},(_,i)=>range.start+i):[];
  const period=`${range.start}–${range.hasOngoing?labels[lang].ongoing:range.end}`;
- return <section className="phase-section"><div className="phase-heading"><h3>{String(index+1).padStart(2,'0')} / {name}</h3><span>{period}</span></div><div className="phase-description"><h4>{title}</h4>{description&&<p>{description}</p>}</div>
+ return <section className="phase-section"><div className="phase-heading"><h3>{name}</h3><span>{period}</span></div><div className="phase-description"><h4>{title}</h4>{description&&<p>{description}</p>}</div>
  {primary.length>0&&years.length>0&&<div className="phase-chart-heading"><span>ACTIVITY / ROLE</span><div className="phase-years" style={{gridTemplateColumns:`repeat(${years.length},minmax(0,1fr))`}}>{years.map(y=><span key={y}>{y}</span>)}</div><span/></div>}
  {primary.map(a=><Activity key={a.id} item={a} phase={phase} range={range} now={now} lang={lang} entries={entries}/>)}
  {also.length>0&&<div className="phase-also"><small>{labels[lang].continued}</small>{also.map(a=><Activity key={a.id} item={a} now={now} lang={lang} entries={entries} also/>)}</div>}
