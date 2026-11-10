@@ -209,3 +209,42 @@
     object-fit: contain;
   }
 }
+
+/* About UI improvements — 2026-11-11 */
+@media (min-width: 701px) {
+ .section-page.about-layout .profile-art { margin-top:clamp(132px, 10vw, 166px) !important; }
+}
+.activity-summary { font-size:.81rem; line-height:1.65; color:#386d91; white-space:pre-wrap; overflow-wrap:anywhere; }
+.activity-static { cursor:default; }
+.activity-static:hover .activity-name { text-decoration:none; }
+.activity-chevron-empty { visibility:hidden; }
+.about-education-chart-option {margin:14px 0 5px!important; padding:12px 14px; background:#e5eef3; border:1px solid #c6d9e4;}
+.about-save-toast {position:fixed;z-index:1100;right:24px;top:24px;display:flex;align-items:center;gap:12px;max-width:min(440px,calc(100vw - 32px));padding:15px 18px;background:#f8fbfc;border:1px solid #9ab9cb;box-shadow:0 8px 30px rgba(26,91,140,.17);color:#1A5B8C;font-size:14px;line-height:1.5;}
+.about-save-toast>span:first-child {font-size:18px;font-weight:700;}
+.about-save-toast button {border:0;background:transparent;color:#1A5B8C;font-size:22px;margin-left:auto;padding:0 2px;}
+@media(max-width:700px){.about-save-toast{top:12px;right:12px;left:12px;max-width:none;}}
+
+/* About follow-up: visibly distinct phase groups and language audit — 2026-11-11 */
+.about-section .phase-section {margin: 2.6rem 0 3.5rem;}
+.about-section .phase-section + .phase-section {margin-top: 3.7rem;}
+.phase-identity {background:#e3edf3; border-left:5px solid #1A5B8C; padding:20px 24px 19px; margin:0 0 23px;}
+.phase-identity .phase-heading {align-items:center;gap:16px;}
+.phase-identity .phase-heading h3 {font-size:clamp(1.35rem,2.3vw,1.8rem);line-height:1.2;font-weight:700;letter-spacing:.035em;overflow-wrap:anywhere;}
+.phase-identity .phase-heading span {font-size:.82rem;font-weight:600;color:#386b89;}
+.phase-identity .phase-description {margin:13px 0 0;padding:0;background:transparent;border:0;}
+.phase-identity .phase-description h4 {font-size:.98rem;font-weight:600;margin:0 0 6px;}
+.phase-identity .phase-description p {font-size:.88rem;line-height:1.65;color:#406c86;}
+.about-title-audit {padding:14px;border:1px solid #b9cbd7;background:#ecf2f5;display:grid;gap:9px;margin:10px 0 16px;}
+.about-title-audit>strong {font-size:13px;color:#1A5B8C;}
+.about-title-audit>div {display:grid;grid-template-columns:95px minmax(0,1fr);gap:10px;align-items:baseline;border-top:1px solid #d1e0e8;padding-top:6px;}
+.about-title-audit>div span {font-size:12px;color:#617f91;}
+.about-title-audit>div b {font-size:13px;color:#1A5B8C;font-weight:500;overflow-wrap:anywhere;}
+.about-title-audit small {font-size:11px;color:#5a7789;line-height:1.5;}
+.about-title-audit .about-swap-lang {justify-self:start;font-size:12px;}
+@media (max-width:700px){
+ .phase-identity{padding:16px 15px 15px;border-left-width:4px;}
+ .phase-identity .phase-heading{align-items:flex-start;}
+ .phase-identity .phase-heading h3{font-size:1.25rem;}
+ .phase-identity .phase-heading span{font-size:.74rem;}
+ .about-section .phase-section+.phase-section{margin-top:2.8rem;}
+}
