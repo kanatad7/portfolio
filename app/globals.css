@@ -248,3 +248,40 @@
  .phase-identity .phase-heading span{font-size:.74rem;}
  .about-section .phase-section+.phase-section{margin-top:2.8rem;}
 }
+
+/* Unified phase timeline 2026-11-13: subtle full-height year guides */
+.phase-section{margin:2.1rem 0 3rem}
+.phase-identity{background:#eaf0f4;border-left:3px solid #1A5B8C;padding:16px 18px;margin-bottom:17px}
+.phase-heading h3{font-size:1.36rem;letter-spacing:.055em;font-weight:650}
+.phase-description{background:none;padding:0;margin:8px 0 0}
+.phase-description h4{font-size:.92rem}.phase-description p{font-size:.8rem}
+.phase-chart-heading{grid-template-columns:minmax(185px,55%) minmax(145px,1fr) 18px;gap:10px}
+.phase-timeline-rows{position:relative;isolation:isolate}
+.phase-timeline-rows::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(55% + 0px);right:28px;background-image:linear-gradient(to right,rgba(95,125,145,.17) 1px,transparent 1px);background-size:calc(100% / var(--phase-year-count)) 100%;background-repeat:repeat-x;border-right:1px solid rgba(95,125,145,.17);pointer-events:none}
+.activity-toggle{grid-template-columns:minmax(185px,55%) minmax(145px,1fr) 18px;gap:10px;padding:13px 3px;min-height:72px}
+.activity-label{gap:4px}.activity-name-role{line-height:1.42}.activity-name{font-size:.88rem}.activity-role{font-size:.77rem;color:#638398}
+.activity-meta{display:flex;gap:12px;align-items:center;font-size:.7rem;color:#7991a0}
+.activity-type{font-size:.63rem;letter-spacing:.045em;font-weight:650;color:#527990}
+.activity-summary{font-size:.78rem;line-height:1.55;color:#597b91;overflow-wrap:anywhere}
+.activity-chart{height:14px;background:transparent!important;border:0!important;overflow:hidden}
+.activity-bar{height:14px;border-radius:2px}
+.activity-chevron{font-size:1rem;color:#6e91a8}.activity-static{cursor:default}
+.activity-expanded{padding:15px 18px;margin:0 28px 8px 0}
+@media(max-width:700px){
+ .phase-chart-heading{display:grid;grid-template-columns:minmax(0,1fr) 30%;gap:8px}.phase-chart-heading>span:last-child{display:none}.phase-chart-heading>span:first-child{font-size:.55rem}
+ .phase-years span{font-size:8px}.phase-years span:nth-child(even){opacity:.6}
+ .activity-toggle{grid-template-columns:minmax(0,1fr) minmax(75px,30%) 14px;gap:8px;align-items:center}
+ .activity-label,.activity-chart,.activity-kind,.activity-chevron{grid-row:auto;grid-column:auto}
+ .activity-chart,.activity-bar{height:12px}
+ .phase-timeline-rows::before{left:calc(70% - 4px);right:22px}
+ .activity-name{font-size:.8rem}.activity-role{font-size:.72rem}.activity-summary{font-size:.71rem}
+}
+
+/* Research formatting and draft indicators */
+.rich-editor{display:grid;gap:8px;min-width:0}.rich-editor>textarea{width:100%;min-height:250px;line-height:1.7}
+.rich-toolbar{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.rich-toolbar button,.rich-upload{font:inherit;font-size:12px;background:#e6edf2;color:#1A5B8C;border:1px solid #bdcfda;padding:6px 10px;cursor:pointer}
+.rich-upload input{display:none}.rich-editor>small{color:#638399;font-size:11px}.rich-body{font-size:inherit;line-height:1.8}.rich-body h2{font-size:1.4em;margin:1.7em 0 .6em}.rich-body h3{font-size:1.13em;margin:1.4em 0 .5em}.rich-body p{margin:.25em 0}.rich-body .rich-gap{height:.7em}.rich-body .rich-list-item{padding-left:1.1em;margin:.2em 0}.rich-body figure{margin:1.6em 0}.rich-body figure img{display:block;width:100%;height:auto;object-fit:contain}.rich-body figcaption{font-size:.78em;color:#708b9d;margin-top:7px}.rich-body a{text-decoration:underline}.draft-status{font-size:12px;color:#557e96;margin:10px 0}
+
+.phase-timeline-rows::before{z-index:0}.phase-timeline-rows>.phase-activity{position:relative;z-index:1}
+
+.body-editor-field{display:grid;gap:8px}.body-editor-field>strong{font-size:13px;font-weight:500}
