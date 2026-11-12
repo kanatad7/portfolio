@@ -1,5 +1,5 @@
-import {RichBody} from '@/components/rich-body';
 "use client";
+import {RichBody} from '@/components/rich-body';
 import {useEffect,useState} from 'react';
 import Link from 'next/link';
 import {ArrowUpRight,ArrowLeft} from 'lucide-react';
