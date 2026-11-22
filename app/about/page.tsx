@@ -1,7 +1,7 @@
 "use client";
 import {useEffect,useState} from 'react';
 import {useLanguage} from '@/components/site';
-import {ui,ArchiveItem} from '@/lib/data';
+import {ui,ArchiveItem,local} from '@/lib/data';
 import {supabase} from '@/lib/supabase';
 import {Profile,Phase,CVItem,translated,localText,safeActivityUrl,activityName} from '@/lib/profile';
 import {rangeForPhase,timelineBar,inferredOngoing,yearLabel} from '@/lib/timeline';
@@ -23,7 +23,7 @@ function Activity({item,lang,entries,range,now,also=false}:{item:CVItem;lang:'en
  return <article className="phase-activity">
  {hasDetails?<button type="button" className="activity-toggle" onClick={()=>setOpen(v=>!v)} aria-expanded={open} aria-label={`${activityName(item,lang)} — ${h.details}`}>{heading}</button>:<div className="activity-toggle activity-static">{heading}</div>}
  {hasDetails&&open&&<div className="activity-expanded"><span className="activity-category">{(item.kind||'work').toUpperCase()}</span>{detail&&<p className="activity-detail">{detail}</p>}
- {(parts.length>0||links.length>0)&&<><strong className="activity-related-title">{h.related}</strong><div className="activity-related">{parts.map(e=><a key={e.id} href={e.section==='archive'?`/archive?item=${encodeURIComponent(e.slug)}`:`/${e.section}/${e.slug}`} className="related-link">{e.title_en||e.title_ja||e.slug} <span aria-hidden="true">↗</span></a>)}{links.map(l=><a key={l.id} href={l.href!} className="related-link" target={l.href!.startsWith('mailto:')?undefined:'_blank'} rel="noopener noreferrer">{l.label||l.url} <span aria-hidden="true">↗</span></a>)}</div></>}
+ {(parts.length>0||links.length>0)&&<><strong className="activity-related-title">{h.related}</strong><div className="activity-related">{parts.map(e=><a key={e.id} href={e.section==='archive'?`/archive?item=${encodeURIComponent(e.slug)}`:`/${e.section}/${e.slug}`} className="related-link">{local(e,'title',lang)||e.slug} <span aria-hidden="true">↗</span></a>)}{links.map(l=><a key={l.id} href={l.href!} className="related-link" target={l.href!.startsWith('mailto:')?undefined:'_blank'} rel="noopener noreferrer">{l.label||l.url} <span aria-hidden="true">↗</span></a>)}</div></>}
  </div>}</article>;
 }
 function PhasePanel({phase,index,activities,entries,lang,now}:{phase:Phase;index:number;activities:CVItem[];entries:ArchiveItem[];lang:'en'|'ja'|'zh';now:Date}){

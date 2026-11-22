@@ -299,3 +299,24 @@
 .phase-order-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding:8px 0;font-size:13px}
 .phase-order-row>span{min-width:0;overflow-wrap:anywhere}.phase-order-row small{display:block;font-size:10px;margin-top:4px}
 .phase-order-row>div{display:flex;gap:5px}.phase-order-row button{border:1px solid var(--line);background:transparent;color:var(--ink);padding:6px 10px}.phase-order-row button:disabled{opacity:.3}
+
+/* Direct-format body editor used by both Works and Research; persisted text remains Markdown. */
+.visual-editor{border:1px solid #c6d4dc;background:white;min-width:0}
+.visual-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:9px 11px;border-bottom:1px solid #d4dfe5;background:#f4f7f8;position:sticky;top:0;z-index:2}
+.visual-toolbar-group{display:flex;gap:3px;padding-right:9px;border-right:1px solid #d2dde3}
+.visual-toolbar button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:34px;min-width:34px;padding:6px 9px;border:1px solid transparent;background:transparent;color:#1a5b8c;cursor:pointer;border-radius:3px}
+.visual-toolbar button:hover,.visual-toolbar button:focus-visible{background:#e2edf3;border-color:#c1d3df}
+.visual-toolbar button:disabled{opacity:.5;cursor:wait}
+.visual-toolbar .visual-insert-image{margin-left:auto;background:#e3eef4;border:1px solid #b8ccda;font-weight:600;font-size:12px;padding:7px 12px}
+.visual-editable{min-height:350px;max-height:70vh;overflow-y:auto;padding:24px 28px;color:#1a5b8c;outline:none;white-space:normal;line-height:1.85}
+.visual-editable:focus{box-shadow:inset 0 0 0 2px rgba(26,91,140,.13)}
+.visual-editable:empty::before{content:attr(data-placeholder);color:#98aab5;pointer-events:none}
+.visual-editable h2{font-size:1.45em;margin:1em 0 .5em;font-weight:700}.visual-editable h3{font-size:1.15em;margin:1em 0 .45em;font-weight:700}
+.visual-editable p{margin:.45em 0;min-height:1em}.visual-editable ul{padding-left:1.5em;list-style:disc}.visual-editable li{margin:.2em 0}
+.visual-editable figure.visual-image{max-width:100%;margin:16px 0 20px;border:1px solid #e1e8ec;padding:10px;background:#fafbfc}
+.visual-editable figure.visual-image img{max-width:100%;height:auto;display:block;object-fit:contain}
+.visual-editable figure.visual-image figcaption{min-height:1.6em;text-align:center;color:#6b8290;font-size:.84em;outline:none}
+.visual-editable figure.visual-image figcaption:empty::before{content:attr(data-placeholder);color:#9caeb9}
+.visual-help{font-size:11px;color:#69869b;padding:0 12px 11px;margin:0}.visual-error{color:#b83232;padding:8px 12px;margin:0}
+.admin-list-lang{margin:13px 0 6px}
+@media(max-width:650px){.visual-editable{padding:18px 14px;min-height:300px}.visual-toolbar .visual-insert-image{margin-left:0}}
