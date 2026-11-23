@@ -1,12 +1,13 @@
 "use client";
 import {useEffect,useState} from 'react';
 import {useLanguage} from '@/components/site';
+import {RichBody} from '@/components/rich-body';
 import {ui,ArchiveItem,local} from '@/lib/data';
 import {supabase} from '@/lib/supabase';
 import {Profile,Phase,CVItem,translated,localText,safeActivityUrl,activityName} from '@/lib/profile';
 import {rangeForPhase,timelineBar,inferredOngoing,yearLabel} from '@/lib/timeline';
 
-const labels={en:{experience:'Experience & Practice',education:'Education',skills:'Skills',details:'Details',related:'Related projects & links',unassigned:'Other experiences',ongoing:'Present',continued:'Also associated with this phase'},ja:{experience:'経歴・活動・研究',education:'学歴',skills:'スキル',details:'詳細を見る',related:'関連作品・リンク',unassigned:'その他の経歴',ongoing:'現在',continued:'このフェーズにも関連する活動'},zh:{experience:'經歷、實踐與研究',education:'學歷',skills:'技能',details:'查看詳情',related:'相關作品與連結',unassigned:'其他經歷',ongoing:'至今',continued:'亦與此階段相關'}};
+const labels={en:{experience:'Experience & Practice',education:'Education',skills:'Skills',details:'Details',related:'Related projects & links',unassigned:'Other experiences',ongoing:'Present',continued:'Also associated with this phase'},ja:{experience:'経歴',education:'学歴',skills:'スキル',details:'詳細を見る',related:'関連作品・リンク',unassigned:'その他の経歴',ongoing:'現在',continued:'このフェーズにも関連する活動'},zh:{experience:'經歷、實踐與研究',education:'學歷',skills:'技能',details:'查看詳情',related:'相關作品與連結',unassigned:'其他經歷',ongoing:'至今',continued:'亦與此階段相關'}};
 function Activity({item,lang,entries,range,now,also=false}:{item:CVItem;lang:'en'|'ja'|'zh';entries:ArchiveItem[];range?:{start:number;end:number};now:Date;also?:boolean}){
  const [open,setOpen]=useState(false);
  const h=labels[lang];
@@ -44,6 +45,6 @@ export default function Page(){const {lang}=useLanguage();const t=ui[lang];const
  useEffect(()=>{let active=true;const db=supabase();if(db){db.from('site_profile').select('*').eq('id','main').maybeSingle().then(({data})=>{if(active&&data)setProfile(data as Profile)});db.from('entries').select('*').eq('published',true).then(({data})=>{if(active)setEntries((data||[]) as ArchiveItem[])})}return()=>{active=false}},[]);
  const intro=profile?translated(profile,'intro',lang):'';const activities=[...(profile?.career_items||[]),...(profile?.education_items||[]).map(e=>({...e,kind:e.kind||'education' as const}))];const phases=profile?.phase_items||[];const orphan=activities.filter(a=>!(a.phase_ids||[]).some(id=>phases.some(p=>p.id===id)));
  return <section className="wrap section-page about-layout"><div className="about-content"><span className="overline">ABOUT / PROFILE</span><h1>{t.aboutTitle}<span className="title-period">.</span></h1><p className="about-intro">{intro||t.aboutBody}</p>
- {profile?<>{translated(profile,'skills',lang)&&<section className="about-section"><h2>{h.skills}</h2><p className="about-multiline">{translated(profile,'skills',lang)}</p></section>}{(phases.length>0||activities.length>0||translated(profile,'experience',lang))&&<section className="about-section"><h2>{h.experience}</h2>{phases.map((p,i)=><PhasePanel key={p.id} phase={p} index={i} activities={activities} lang={lang} entries={entries} now={now}/>)}{orphan.length>0&&<div className="phase-section"><h3>{phases.length?h.unassigned:''}</h3>{orphan.map(item=><Activity key={item.id} item={item} lang={lang} entries={entries} now={now}/>)}</div>}{activities.length===0&&phases.length===0&&<p className="about-multiline">{translated(profile,'experience',lang)}</p>}</section>}
+ {profile?<>{translated(profile,'skills',lang)&&<section className="about-section"><h2>{h.skills}</h2><div className="about-skills-rich"><RichBody body={translated(profile,'skills',lang)}/></div></section>}{(phases.length>0||activities.length>0||translated(profile,'experience',lang))&&<section className="about-section"><h2>{h.experience}</h2>{phases.map((p,i)=><PhasePanel key={p.id} phase={p} index={i} activities={activities} lang={lang} entries={entries} now={now}/>)}{orphan.length>0&&<div className="phase-section"><h3>{phases.length?h.unassigned:''}</h3>{orphan.map(item=><Activity key={item.id} item={item} lang={lang} entries={entries} now={now}/>)}</div>}{activities.length===0&&phases.length===0&&<p className="about-multiline">{translated(profile,'experience',lang)}</p>}</section>}
 </>:<p>{t.cvBody}</p>}</div><div className="profile-art">{profile?.photo_url?<img src={profile.photo_url} alt="Profile portrait" className="about-profile-photo"/>:<span>DESIGN<br/>RESEARCH<br/>PRACTICE</span>}</div></section>;
 }
