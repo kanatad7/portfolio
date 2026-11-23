@@ -48,8 +48,23 @@ export function VisualBodyEditor({value,onChange,onUpload,disabled}:{value:strin
  const command=(cmd:string,arg?:string)=>{focus();document.execCommand(cmd,false,arg);commit()};
  const block=(tag:'p'|'h2'|'h3')=>command('formatBlock',tag);
  const addLink=()=>{const url=window.prompt('リンク先URL（https://...）');if(!url)return;const safe=safeUrl(url.trim());if(!safe){setError('https:// または http:// のURLを入力してください。');return}setError('');focus();const selected=window.getSelection()?.toString();if(selected)document.execCommand('createLink',false,safe);else document.execCommand('insertHTML',false,`<a href="${safe.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${safe.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</a>`);commit()};
- const startUpload=()=>{const selection=window.getSelection();if(selection?.rangeCount&&root.current?.contains(selection.anchorNode))savedRange.current=selection.getRangeAt(0).cloneRange();fileRef.current?.click()};
- const upload=async(file?:File)=>{if(!file)return;setUploading(true);setError('');try{const url=await onUpload(file);if(!url){setError('画像をアップロードできませんでした。');return}const editor=root.current;if(!editor)return;editor.focus();const figure=document.createElement('figure');figure.className='visual-image';const image=document.createElement('img');image.src=url;image.alt='';image.contentEditable='false';figure.append(image);const caption=document.createElement('figcaption');caption.dataset.placeholder='画像の説明を入力（任意）';figure.append(caption);const p=document.createElement('p');p.append(document.createElement('br'));const range=savedRange.current;if(range&&editor.contains(range.commonAncestorContainer)){range.deleteContents();range.insertNode(p);range.insertNode(figure)}else{editor.append(figure,p)}savedRange.current=null;commit();caption.focus()}catch{setError('画像を挿入できませんでした。')}finally{setUploading(false)}};
+ const startUpload=()=>{savedRange.current=null;const selection=window.getSelection();if(selection?.rangeCount&&root.current?.contains(selection.anchorNode))savedRange.current=selection.getRangeAt(0).cloneRange();fileRef.current?.click()};
+ /** Insert an image as a top-level block. Nested figures inside paragraphs were lost by serialize(). */
+ const insertFigure=(editor:HTMLElement,figure:HTMLElement,after:HTMLElement,range:Range|null)=>{
+  if(!range||!editor.contains(range.commonAncestorContainer)){editor.append(figure,after);return}
+  range.deleteContents();range.insertNode(figure);
+  // Split each enclosing block without throwing away text before/after the caret.
+  while(figure.parentElement&&figure.parentElement!==editor){
+   const parent=figure.parentElement;
+   const tail=parent.cloneNode(false) as HTMLElement;
+   while(figure.nextSibling)tail.append(figure.nextSibling);
+   parent.after(figure);
+   if(tail.hasChildNodes())figure.after(tail);
+   if(!parent.hasChildNodes())parent.remove();
+  }
+  figure.after(after);
+ };
+ const upload=async(file?:File)=>{if(!file)return;setUploading(true);setError('');try{const url=await onUpload(file);if(!url){setError('画像をアップロードできませんでした。');return}const editor=root.current;if(!editor)return;editor.focus();const figure=document.createElement('figure');figure.className='visual-image';const image=document.createElement('img');image.src=url;image.alt='';image.contentEditable='false';figure.append(image);const caption=document.createElement('figcaption');caption.dataset.placeholder='画像の説明を入力（任意）';figure.append(caption);caption.contentEditable='true';const p=document.createElement('p');p.append(document.createElement('br'));insertFigure(editor,figure,p,savedRange.current);savedRange.current=null;commit();caption.focus()}catch{setError('画像を挿入できませんでした。')}finally{setUploading(false)}};
  return <div className="visual-editor">
  <div className="visual-toolbar" role="toolbar" aria-label="本文の書式設定">
   <div className="visual-toolbar-group"><button type="button" title="本文" aria-label="本文" onMouseDown={e=>e.preventDefault()} onClick={()=>block('p')}><AlignLeft size={17}/></button><button type="button" title="大見出し" aria-label="大見出し" onMouseDown={e=>e.preventDefault()} onClick={()=>block('h2')}><Heading2 size={18}/></button><button type="button" title="小見出し" aria-label="小見出し" onMouseDown={e=>e.preventDefault()} onClick={()=>block('h3')}><Heading3 size={18}/></button></div>
